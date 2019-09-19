@@ -138,6 +138,7 @@ type RepositoryBranchOptions struct {
 	Sort     string `json:"sort"`
 	PageNum  int    `json:"page"`
 	Pagelen  int    `json:"pagelen"`
+	MaxDepth int    `json:"max_depth"`
 }
 
 type PullRequestsOptions struct {
@@ -236,7 +237,8 @@ type DownloadsOptions struct {
 }
 
 type PageRes struct {
-	Page    int32 `json:"page"`
-	PageLen int32 `json:"pagelen"`
-	Size    int32 `json:"size"`
+	Page     int32 `json:"page"`
+	PageLen  int32 `json:"pagelen"`
+	MaxDepth int32 `json:"max_depth"`
+	Size     int32 `json:"size"`
 }

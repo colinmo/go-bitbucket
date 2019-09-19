@@ -21,10 +21,11 @@ type Repositories struct {
 }
 
 type RepositoriesRes struct {
-	Page    int32
-	Pagelen int32
-	Size    int32
-	Items   []Repository
+	Page     int32
+	Pagelen  int32
+	MaxDepth int32
+	Size     int32
+	Items    []Repository
 }
 
 func (r *Repositories) ListForAccount(ro *RepositoriesOptions) (*RepositoriesRes, error) {
@@ -85,16 +86,21 @@ func decodeRepositorys(reposResponse interface{}) (*RepositoriesRes, error) {
 	if !ok {
 		pagelen = 0
 	}
+	max_depth, ok := reposResponseMap["max_width"].(float64)
+	if !ok {
+		max_depth = 0
+	}
 	size, ok := reposResponseMap["size"].(float64)
 	if !ok {
 		size = 0
 	}
 
 	repositories := RepositoriesRes{
-		Page:    int32(page),
-		Pagelen: int32(pagelen),
-		Size:    int32(size),
-		Items:   repos,
+		Page:     int32(page),
+		Pagelen:  int32(pagelen),
+		MaxDepth: int32(max_depth),
+		Size:     int32(size),
+		Items:    repos,
 	}
 	return &repositories, nil
 }
