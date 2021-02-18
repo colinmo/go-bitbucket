@@ -20,9 +20,10 @@ func (c *Client) AddCommit(
 	deleteFiles []string,
 	message string,
 	author string,
+	repositoryPath string,
 ) (interface{}, error) {
 
-	urlStr := GetApiBaseURL() + "/repositories/vonexplaino/blog/src/"
+	urlStr := GetApiBaseURL() + "/repositories/" + repositoryPath + "/src/"
 
 	// Data
 	var b bytes.Buffer
