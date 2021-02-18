@@ -27,7 +27,8 @@ func (c *Client) AddCommit(
 	// Data
 	var b bytes.Buffer
 	w := multipart.NewWriter(&b)
-	w.WriteField("author", "Colin Morris <c.morris@griffith.edu.au>")
+	w.WriteField("author", author)
+	w.WriteField("message", message)
 	for _, newFile := range addFiles {
 		var fw io.Writer
 		var err error
@@ -39,6 +40,9 @@ func (c *Client) AddCommit(
 		if _, err = io.Copy(fw, r); err != nil {
 			panic(err)
 		}
+	}
+	for _, delFile := range deleteFiles {
+		w.CreateFormField("files", delFile)
 	}
 	w.Close()
 
